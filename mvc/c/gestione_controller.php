@@ -31,46 +31,50 @@ if (!class_exists('fabstampaunione\gestione_controller')) {
 
         public function ajax_update_all()
         {
-            if (wp_verify_nonce($_POST['security'], $this->parent->nonce)) {
-                $post_id_saved = array();
-                if (isset($_POST['post_id']) && is_array($_POST['post_id'])) {
+            if ($this->can_delete()) {
+                if (wp_verify_nonce($_POST['security'], $this->parent->nonce)) {
+                    $post_id_saved = array();
+                    if (isset($_POST['post_id']) && is_array($_POST['post_id'])) {
 
-                    foreach ($_POST['post_id'] as $post_id) {
-                        if (isset($_POST['action_sel'])) {
-                            switch ($_POST['action_sel']) {
-                                case 'genera_pdf':
+                        foreach ($_POST['post_id'] as $post_id) {
+                            if (isset($_POST['action_sel'])) {
+                                switch ($_POST['action_sel']) {
+                                    case 'genera_pdf':
 
-                                    $pdf_path = $this->genera_pdf_by_id($post_id);
-                                    $post_id_saved[] = $post_id;
-
-                                    break;
-                                case 'send_email':
-                                    $email = $this->send_email_by_id($post_id);
-                                    if ($email) {
+                                        $pdf_path = $this->genera_pdf_by_id($post_id);
                                         $post_id_saved[] = $post_id;
-                                    }
-                                    break;
-                                case 'delete_pdf':
-                                    if ($this->delete_pdf_by_id($post_id)) {
-                                        $post_id_saved[] = $post_id;
-                                    }
-                                    break;
-                                default:
-                                    echo json_encode(array("id" => false, "errors" => "Nessun azione trovata", "message" => "error"));
-                                    exit;
-                                    break;
+
+                                        break;
+                                    case 'send_email':
+                                        $email = $this->send_email_by_id($post_id);
+                                        if ($email) {
+                                            $post_id_saved[] = $post_id;
+                                        }
+                                        break;
+                                    case 'delete_pdf':
+                                        if ($this->delete_pdf_by_id($post_id)) {
+                                            $post_id_saved[] = $post_id;
+                                        }
+                                        break;
+                                    default:
+                                        echo json_encode(array("id" => false, "errors" => "Nessun azione trovata", "message" => "error"));
+                                        exit;
+                                        break;
+                                }
                             }
                         }
                     }
-                }
 
-                if (count($post_id_saved) > 0) {
-                    echo json_encode(array("id" => $post_id_saved, "errors" => false, "message" => "Azione eseguita con successo!"));
+                    if (count($post_id_saved) > 0) {
+                        echo json_encode(array("id" => $post_id_saved, "errors" => false, "message" => "Azione eseguita con successo!"));
+                    } else {
+                        echo json_encode(array("id" => false, "errors" => "Nessun record aggiornato", "message" => "error"));
+                    }
                 } else {
-                    echo json_encode(array("id" => false, "errors" => "Nessun record aggiornato", "message" => "error"));
+                    echo json_encode(array("id" => false, "errors" => "nonce", "message" => "Error nonce"));
                 }
             } else {
-                echo json_encode(array("id" => false, "errors" => "nonce", "message" => "Error nonce"));
+                echo json_encode(array("id" => false, "errors" => "no auth", "message" => "Error nonce"));
             }
             wp_die();
         }
