@@ -56,9 +56,9 @@
                                     Azioni <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->url_genera_pdf($post_id) ?>">Genera PDF</a></li>
-                                    <li><a href="<?php echo $this->url_delete_pdf($post_id) ?>" onclick="return confirm('Sei sicuro di eliminare il PDF?')">Elimina PDF</a></li>
-                                    <li><a href="<?php echo $this->url_send_email($post_id) ?>">Invia email</a></li>
+                                    <li><a href="<?php echo $this->url_genera_pdf($post_id) ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Genera PDF</a></li>
+                                    <li><a href="<?php echo $this->url_delete_pdf($post_id) ?>" onclick="return confirm('Sei sicuro di eliminare il PDF?')"><i class="fa fa-trash" aria-hidden="true"></i> Elimina PDF</a></li>
+                                    <li><a href="<?php echo $this->url_send_email($post_id) ?>"><i class="fa fa-paper-plane" aria-hidden="true"></i> Invia email</a></li>
                                 </ul>
                             </div>
                         </td>
