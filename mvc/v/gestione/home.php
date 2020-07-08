@@ -34,7 +34,7 @@
                     <th>
                         <input type="checkbox" class="toggle_all">
                     </th>
-                    <th colspan="2"></th>
+                    <th></th>
                     <th>ID</th>
                     <th>POST_TITLE</th>
                     <?php foreach ($metas_key as $key => $value) : ?>
@@ -50,9 +50,18 @@
                         ?>
                     <tr>
                         <td><input type="checkbox" class="post_id" name="post_id[]" class="" value="<?php echo $post_id ?>"></td>
-                        <td><a href="<?php echo $this->url_genera_pdf($post_id) ?>">Genera PDF</a></td>
-                        <td><a href="<?php echo $this->url_delete_pdf($post_id) ?>" onclick="return confirm('Sei sicuro di eliminare il PDF?')">Elimina PDF</a></td>
-                        <td><a href="<?php echo $this->url_send_email($post_id) ?>">Invia email</a></td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Azioni <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo $this->url_genera_pdf($post_id) ?>">Genera PDF</a></li>
+                                    <li><a href="<?php echo $this->url_delete_pdf($post_id) ?>" onclick="return confirm('Sei sicuro di eliminare il PDF?')">Elimina PDF</a></li>
+                                    <li><a href="<?php echo $this->url_send_email($post_id) ?>">Invia email</a></li>
+                                </ul>
+                            </div>
+                        </td>
                         <td><?php echo $post_id ?></td>
                         <td><?php echo get_the_title() ?></td>
 
