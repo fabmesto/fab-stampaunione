@@ -121,7 +121,8 @@ if (!class_exists('fabstampaunione\gestione_controller')) {
             $base_upload_dir = $upload_dir['basedir'];
             $dest_upload_dir =  $base_upload_dir . '/' . $this->import_dir;
 
-            $excel = \fab\functions::excel_read($dest_upload_dir  . '/' . $filename, 0, 1);
+            require_once FAB_BASE_PLUGIN_DIR_PATH . 'fab_base/excel.php';
+            $excel = \fab\excel::read($dest_upload_dir  . '/' . $filename, 0, 1);
             $rows = $excel['rows'];
             $this->save_import($rows);
         }
