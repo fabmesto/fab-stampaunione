@@ -284,7 +284,7 @@ if (!class_exists('fabstampaunione\gestione_controller')) {
                 $html = $this->_replace_special(wpautop(get_option('fabstampaunione-pdf-html')), $this->data['post']);
 
                 //require_once(FAB_BASE_PLUGIN_DIR_PATH."vendor/TCPDF/examples/tcpdf_include.php");
-                require FAB_BASE_PLUGIN_DIR_PATH . "vendor/autoload.php";
+                require FAB_PLUGIN_DIR_PATH . "vendor/autoload.php";
                 $pdf = new \TCPDF(get_option('fabstampaunione-pdf-orientamento', 'P'), PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
                 // set document information
